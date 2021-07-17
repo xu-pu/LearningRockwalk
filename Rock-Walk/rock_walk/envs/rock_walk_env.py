@@ -18,13 +18,17 @@ import pkgutil
 
 class RockWalkEnv(gym.Env):
 
-    def __init__(self, bullet_connection, step_freq, frame_skip):
+    def __init__(self, bullet_connection, step_freq, frame_skip, episode_timeout=5.):
 
         self._bullet_connection = bullet_connection
         self._frame_skip = frame_skip
-        self._ep_timeout = 5.
+        self._ep_timeout = episode_timeout
         self._mu_min = 0.2
         self._mu_max = 2.0 #1.0
+
+        self._cam_dist = 4
+        self._cam_yaw = 90
+        self._cam_pitch = -30
 
         action_low = np.array([-1, -1], dtype=np.float64)
         action_high = np.array([1, 1], dtype=np.float64)
@@ -93,6 +97,8 @@ class RockWalkEnv(gym.Env):
 
         ob = np.array([noisy_cone_state[2], noisy_cone_state[3], noisy_cone_state[4],
                        noisy_cone_state[7], noisy_cone_state[8], noisy_cone_state[9]], dtype=np.float64)
+
+        self.adjust_camera_pose()
 
         return ob
 

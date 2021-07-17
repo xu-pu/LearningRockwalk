@@ -28,18 +28,18 @@ class Joystick:
             sleep(1./50)
             pygame.event.get()
             self.x = self.joy.get_axis(3)
-            self.y = -self.joy.get_axis(4)
-            #print(f'Input x={self.x}, y={self.y}')
+            self.y = self.joy.get_axis(4)
 
 
 if __name__ == "__main__":
     js = Joystick()
     sim_hz = 5000
-    env = gym.make("RockWalk-v0", bullet_connection=1, step_freq=sim_hz, frame_skip=1)
+    joystick_scale = 10
+    env = gym.make("RockWalk-v0", bullet_connection=1, step_freq=sim_hz, frame_skip=1, episode_timeout=1000)
     env.reset()
     while True:
-        sleep(1 / sim_hz)
-        action = 10 * np.array([-js.y,js.x])
-        obs, rewards, dones, info = env.step(action)
-        if dones:
+        sleep(1./sim_hz)
+        action = joystick_scale * np.array([js.y, js.x])
+        obs, rewards, done, info = env.step(action)
+        if done:
             env.reset()
