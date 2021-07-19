@@ -26,9 +26,9 @@ class RnwSingleCableEnv(gym.Env):
         self._mu_min = 0.2
         self._mu_max = 2.0
 
-        self._cam_dist = 4
+        self._cam_dist = 3
         self._cam_yaw = 90
-        self._cam_pitch = -30
+        self._cam_pitch = -20
 
         action_low = np.array([-1, -1], dtype=np.float64)
         action_high = np.array([1, 1], dtype=np.float64)
