@@ -77,3 +77,19 @@ class MotionControlledCone:
         psi, theta, phi = compute_body_euler(R)
         psi_dot, theta_dot, phi_dot = compute_body_velocity(R, w)
         return [p[0], p[1], psi, theta, phi, v[0], v[1], psi_dot, theta_dot, phi_dot]
+
+    @property
+    def lateral_friction(self):
+        return pybullet.getDynamicsInfo(self.bodyID, self.coneID, physicsClientId=self.clientID)[1]
+
+    @lateral_friction.setter
+    def lateral_friction(self, value):
+        pybullet.changeDynamics(self.bodyID, self.coneID, lateralFriction=value, physicsClientId=self.clientID)
+
+    @property
+    def mass(self):
+        return pybullet.getDynamicsInfo(self.bodyID, self.coneID, physicsClientId=self.clientID)[0]
+
+    @mass.setter
+    def mass(self, value):
+        pybullet.changeDynamics(self.bodyID, self.coneID, mass=value, physicsClientId=self.clientID)

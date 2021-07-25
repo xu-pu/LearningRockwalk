@@ -86,8 +86,6 @@
 
   </link>
 
-
-
   <link name="cone_marker">
       <visual>
           <origin rpy="0 0 0" xyz="0 -0.01 -0.74"/>
@@ -107,6 +105,7 @@
     <parent link="base_link"/>
     <child link="apex_link_x"/>
     <limit lower="-100" upper="100"/>
+    <joint_properties damping="0.0" friction="0.0"/>
   </joint>
 
   <joint name="joint_apex_y" type="prismatic">
@@ -114,6 +113,7 @@
     <parent link="apex_link_x"/>
     <child link="apex_link_y"/>
     <limit lower="-100" upper="100"/>
+    <joint_properties damping="0.0" friction="0.0"/>
   </joint>
 
   <joint name="joint_apex_z" type="prismatic">
@@ -121,26 +121,29 @@
     <parent link="apex_link_y"/>
     <child link="apex_link_z"/>
     <limit lower="-100" upper="100"/>
+    <joint_properties damping="0.0" friction="0.0"/>
   </joint>
 
   <joint name="joint_apex_dummy_1" type="spherical">
     <axis xyz="0 0 1"/>
     <parent link="apex_link_z"/>
     <child link="apex_link_dummy_1"/>
+    <joint_properties damping="0.0" friction="0.0"/>
   </joint>
 
   <joint name="joint_apex_dummy_2" type="spherical">
     <axis xyz="0 1 0"/>
     <parent link="apex_link_dummy_1"/>
     <child link="apex_link_dummy_2"/>
+    <joint_properties damping="0.0" friction="0.0"/>
   </joint>
 
   <joint name="joint_apex_dummy_3" type="spherical">
     <axis xyz="1 0 0"/>
     <parent link="apex_link_dummy_2"/>
     <child link="cone"/>
+    <joint_properties damping="0.0" friction="0.0"/>
   </joint>
-
 
   <joint name="joint_cone_marker" type="fixed">
     <parent link="cone"/>
