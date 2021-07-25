@@ -28,19 +28,20 @@ class MotionControlledCone:
         self.joint_id2name = dict([(item[0], item[1].decode("UTF-8")) for item in self.joint_info])
         self.link_id2name = dict([(item[0], item[12].decode("UTF-8")) for item in self.joint_info])
         self.cone_link_name = 'cone'
+        self.strength = [500, 500, 500]
 
     def apply_action(self, action):
-        self.apply_joint_vel('joint_apex_x', action[0])
-        self.apply_joint_vel('joint_apex_y', action[1])
-        self.apply_joint_vel('joint_apex_z', action[2])
+        self.apply_joint_vel('joint_apex_x', action[0], self.strength_x)
+        self.apply_joint_vel('joint_apex_y', action[1], self.strength_y)
+        self.apply_joint_vel('joint_apex_z', action[2], self.strength_z)
 
-    def apply_joint_vel(self, name, vel):
+    def apply_joint_vel(self, name, vel, strength):
         pybullet.setJointMotorControl2(
             self.bodyID,
             jointIndex=self.joint_name2id[name],
             controlMode=pybullet.VELOCITY_CONTROL,
             targetVelocity=vel,
-            force=500,
+            force=strength,
             physicsClientId=self.clientID
         )
 
@@ -93,3 +94,33 @@ class MotionControlledCone:
     @mass.setter
     def mass(self, value):
         pybullet.changeDynamics(self.bodyID, self.coneID, mass=value, physicsClientId=self.clientID)
+
+    @property
+    def strength_x(self):
+        return self.strength[0]
+
+    @strength_x.setter
+    def strength_x(self, val):
+        self.strength[0] = val
+
+    @property
+    def strength_y(self):
+        return self.strength[1]
+
+    @strength_y.setter
+    def strength_y(self, val):
+        self.strength[1] = val
+
+    @property
+    def strength_z(self):
+        return self.strength[2]
+
+    @strength_z.setter
+    def strength_z(self, val):
+        self.strength[2] = val
+
+    def set_strength_mass_ratio(self, ratio):
+        val = ratio * 9.8 * self.mass
+        self.strength_x = val
+        self.strength_y = val
+        self.strength_z = val
