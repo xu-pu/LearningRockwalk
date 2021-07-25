@@ -16,8 +16,7 @@ from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize, VecVideo
 class RLModel:
 
     def __init__(self, connection, freq, frame_skip, train):
-        self._env = gym.make("RockWalk-v0", bullet_connection=connection, step_freq=freq, frame_skip=frame_skip)
-
+        self._env = gym.make("MotionControlRnw-v0", bullet_connection=connection, step_freq=freq, frame_skip=frame_skip)
         if train == True:
             self._env = Monitor(self._env, "./log")
         else:
@@ -92,32 +91,21 @@ class RLModel:
         action_y_np = np.array(action_y_list)
         action_time_np = np.array(action_time_list)
 
-        np.savez("./sim_data/data.npz",
-                 obs_psi = obs_psi_np,
-                 obs_theta = obs_theta_np,
-                 obs_phi = obs_phi_np,
-                 obs_psi_dot = obs_psi_dot_np,
-                 obs_theta_dot = obs_theta_dot_np,
-                 obs_phi_dot = obs_phi_dot_np,
-                 action_x=action_x_np,
-                 action_y=action_y_np,
-                 time=action_time_np)
-
 
 def main():
-    freq = 50.
-    frame_skip = 5
-    # rl_model = RLModel(0, freq, frame_skip, train=True)
-    # rl_model.train_model()
+    freq = 240
+    frame_skip = 24
+    rl_model = RLModel(0, freq, frame_skip, train=True)
+    rl_model.train_model()
 
-    test_begin = input("Press enter to test model")
-    if test_begin == "":
-        freq = 240.
-        frame_skip = 1
-        rl_model = RLModel(1, freq, frame_skip, train=False) #0: DIRECT 1: GUI 2: SHARED_MEMORY
-        rl_model.test_model(freq)
-    else:
-        rl_model._env.close()
+    # test_begin = input("Press enter to test model")
+    # if test_begin == "":
+    #     freq = 240.
+    #     frame_skip = 1
+    #     rl_model = RLModel(1, freq, frame_skip, train=False) #0: DIRECT 1: GUI 2: SHARED_MEMORY
+    #     rl_model.test_model(freq)
+    # else:
+    #     rl_model._env.close()
 
 
 if __name__ == "__main__":

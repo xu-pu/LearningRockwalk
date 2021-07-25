@@ -37,16 +37,15 @@ class MotionControlRnwEnv(gym.Env):
 
         self.goal_position = np.array([0, 7.5])
 
-        action_low = np.array([-1, -1], dtype=np.float64)
-        action_high = np.array([1, 1], dtype=np.float64)
+        action_low = np.array([-1, -1, -1], dtype=np.float64)
+        action_high = np.array([1, 1, 1], dtype=np.float64)
         self.action_space = gym.spaces.box.Box(low=action_low, high=action_high)
 
-        obs_low = np.array([-5, -5, -5, -10, -10, -10], dtype=np.float64)
-        obs_high = np.array([5, 5, 5, 10, 10, 10], dtype=np.float64)
+        obs_low = np.array([-100, -100, -100, -100, -np.pi, -np.pi, -np.pi, -10, -10, -10, -10, -10], dtype=np.float64)
+        obs_high = np.array([100, 100, 100, 100, np.pi, np.pi, np.pi, 10, 10, 10, 10, 10], dtype=np.float64)
         self.observation_space = gym.spaces.box.Box(low=obs_low, high=obs_high)
 
         self.bullet_setup(bullet_connection)
-        #bullet.setTimeStep(1./step_freq, self.clientID)
 
         self.np_random, _ = gym.utils.seeding.np_random()
         self.reset()
