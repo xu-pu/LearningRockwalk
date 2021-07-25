@@ -1,3 +1,4 @@
+import sys
 import pygame
 import threading
 from time import sleep
