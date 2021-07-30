@@ -39,5 +39,7 @@ if __name__ == "__main__":
     tune.run(
         "SAC",
         stop={"timesteps_total": 1e6},
-        config=config
+        config=config,
+        local_dir="./results",
+        name="test_experiment"
     )

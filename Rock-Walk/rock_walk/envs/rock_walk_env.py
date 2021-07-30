@@ -50,8 +50,8 @@ class RockWalkEnv(gym.Env):
         action_high = np.array([1, 1], dtype=np.float64)
         self.action_space = gym.spaces.box.Box(low=action_low, high=action_high)
 
-        obs_low = np.array([-5, -5, -5, -10, -10, -10]+[0,0,-5,-5,-5], dtype=np.float64)
-        obs_high = np.array([5, 5, 5, 10, 10, 10]+[5,5,5,5,5], dtype=np.float64)
+        obs_low = np.array([-5, -5, -5, -20, -20, -20]+[0,0,-5,-5,-5], dtype=np.float64)
+        obs_high = np.array([5, 5, 5, 20, 20, 20]+[5,5,5,5,5], dtype=np.float64)
         self.observation_space = gym.spaces.box.Box(low=obs_low, high=obs_high)
 
         self.np_random, _ = gym.utils.seeding.np_random() #input seed eg. 0 for repeatability
