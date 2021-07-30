@@ -16,6 +16,7 @@ if __name__ == "__main__":
             "framework": "torch",
             "env": MotionControlRnwEnv,
             "rollout_fragment_length": 100,
+            "learning_starts": 2000,
             "num_gpus": 1,
             "num_workers": 6
         },
