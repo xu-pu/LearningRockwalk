@@ -24,8 +24,9 @@ if __name__ == "__main__":
     config.update({
             "framework": "torch",
             "env": RockWalkEnv,
-            "rollout_fragment_length": 100,
+            "rollout_fragment_length": 50,
             "learning_starts": 2000,
+            "train_batch_size": 2048,
             "num_gpus": 1,
             "num_workers": 6,
             "env_config": {
@@ -43,6 +44,6 @@ if __name__ == "__main__":
         local_dir="./results",
         name="test_experiment",
         keep_checkpoints_num=10,
-        checkpoint_freq=5,
+        checkpoint_freq=100,
         checkpoint_at_end=True,
     )
