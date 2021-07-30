@@ -88,6 +88,11 @@ class RockWalkEnv(gym.Env):
         ob = np.array([noisy_cone_state[2], noisy_cone_state[3], noisy_cone_state[4],
                        noisy_cone_state[7], noisy_cone_state[8], noisy_cone_state[9]]+object_param, dtype=np.float64)
 
+        if not self.observation_space.contains(ob):
+            ob = np.clip(ob, self.observation_space.low, self.observation_space.high)
+            print('terminated: observation out of bound!')
+            self.done = True
+
         return ob, reward, self.done, dict()
 
 
