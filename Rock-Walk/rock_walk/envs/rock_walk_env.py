@@ -17,11 +17,11 @@ from scipy.spatial.transform import Rotation as R
 
 class RockWalkEnv(gym.Env):
 
-    def __init__(self, bullet_connection, step_freq, frame_skip, isTrain):
+    def __init__(self, bullet_connection, step_freq, frame_skip, isTrain, episode_timout=10):
         self._bullet_connection = bullet_connection
         self._frame_skip = frame_skip
         self._isTrain = isTrain
-        self._episode_timout = 10
+        self._episode_timout = episode_timout
 
         self._desired_nutation = 25 # in degrees
 
