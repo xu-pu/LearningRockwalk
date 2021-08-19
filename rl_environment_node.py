@@ -13,7 +13,7 @@ class RLEnv:
 
     def __init__(self):
         self.sim_freq = 240
-        self.env = gym.make("RockWalk-v0", bullet_connection=0, step_freq=self.sim_freq, frame_skip=1, isTrain=False, episode_timout=math.inf)
+        self.env = gym.make("RockWalk-v0", bullet_connection=1, step_freq=self.sim_freq, frame_skip=1, isTrain=False, episode_timout=math.inf)
         self.env.reset()
         self.action = np.zeros(self.env.action_space.shape[-1])
         self.pub_odom = rospy.Publisher('/rl_agent/odom', Odometry, queue_size=10)

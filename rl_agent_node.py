@@ -34,7 +34,7 @@ class RnwAgent:
         self.action_scale = 0.18
 
     def on_observation(self, msg):
-        obs = np.array(msg.axes+self.object_param)
+        obs = np.array(msg.axes)
         action, _ = self.agent.predict(obs, deterministic=True)
         action = action * self.action_scale
         action_msg = Joy()
