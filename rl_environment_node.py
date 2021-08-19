@@ -17,6 +17,7 @@ class RLEnv:
         self.env.reset()
         self.action = np.zeros(self.env.action_space.shape[-1])
         self.pub_odom = rospy.Publisher('/rl_agent/odom', Odometry, queue_size=10)
+        self.pub_obs = rospy.Publisher('/rl_agent/observation', Joy, queue_size=10)
         self.sub_action = rospy.Subscriber("/rl_agent/action", Joy, self.on_action)
 
     def on_action(self, msg):
@@ -44,6 +45,10 @@ class RLEnv:
             msg.twist.twist.angular.y = w[1]
             msg.twist.twist.angular.z = w[2]
             self.pub_odom.publish(msg)
+            joy_msg = Joy()
+            joy_msg.header = msg.header
+            joy_msg.axes = observation
+            self.pub_obs.publish(joy_msg)
             rate.sleep()
 
 def main():
