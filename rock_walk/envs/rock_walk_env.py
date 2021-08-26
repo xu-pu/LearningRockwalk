@@ -26,7 +26,7 @@ class RockWalkEnv(gym.Env):
 
         self._desired_nutation = 25 # in degrees
 
-        self._object_param_file_path = "/home/nazir/learning_rockwalk/workstation/training_objects_params.txt"
+        self._object_param_file_path = os.path.join(os.path.dirname(__file__), '../../training_objects_params.txt')
         if self._isTrain==True:
             self._init_object_param = list(np.loadtxt(self._object_param_file_path, delimiter=',', skiprows=1, dtype=np.float64)[-1:].flatten())
         else:
