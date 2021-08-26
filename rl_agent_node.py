@@ -45,5 +45,6 @@ class RnwAgent:
 
 
 if __name__ == "__main__":
+    print('rl_agent_node.py launched!')
     rnw_rl_agent = RnwAgent()
     rospy.spin()
